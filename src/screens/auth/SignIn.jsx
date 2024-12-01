@@ -1,12 +1,13 @@
 import { Alert, Image, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import logo from '../../assets/images/img.png';
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AuthContext } from '../../App';
 
 const SignIn = ({ navigation }) => {
-
+  const { signIn } = useContext(AuthContext);
   const [isLoading, setisLoading] = useState(false);
 
   const [form, setForm] = useState({
@@ -25,28 +26,28 @@ const SignIn = ({ navigation }) => {
         body: JSON.stringify(form)
       });
       const res_data = await data.json();
-      await AsyncStorage.setItem('token', res_data.token);
-      navigation.navigate('Tabs');
+      
       if (!data.ok) {
         Alert.alert("Invalid details!!", res_data.extraDetails ? res_data.extraDetails : res_data.message);
-        setisLoading(false);
       } else {
+        await signIn(res_data.token);
         setForm({
           username: '',
           password: '',
-        })
+        });
         Alert.alert("Success!!", res_data.message);
-        setisLoading(false);
       }
     } catch (error) {
       console.log("Failed to login!!");
+      Alert.alert("Error", "Failed to login. Please try again.");
+    } finally {
       setisLoading(false);
     }
   }
 
   return (
     <SafeAreaView>
-      <ScrollView contentContainerStyle={{ height: '100vh', paddingVertical: 50, backgroundColor: '#161622' }}>
+      <ScrollView contentContainerStyle={{ height: '100%', paddingVertical: 50, backgroundColor: '#161622' }}>
         <View
           style={{
             flex: 1,
@@ -101,10 +102,17 @@ const SignIn = ({ navigation }) => {
               title='Password'
               value={form.password}
               handleChangeText={(value) => setForm({ ...form, password: value })}
+              secureTextEntry={true}
             />
           </View>
-          {isLoading ? (<CustomButton isDisabled={true} title='Please wait...' />) : (
-            <CustomButton isDisabled={!form.username || !form.password ? true : false} title='Sign in' handlePress={() => submitData()} />
+          {isLoading ? (
+            <CustomButton isDisabled={true} title='Please wait...' />
+          ) : (
+            <CustomButton 
+              isDisabled={!form.username || !form.password ? true : false} 
+              title='Sign in' 
+              handlePress={() => submitData()} 
+            />
           )}
           <Text
             onPress={() => navigation.navigate('SignUp')}

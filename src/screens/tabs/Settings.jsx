@@ -1,17 +1,16 @@
 import { StatusBar, StyleSheet, Text, View } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import CustomButton from '../../components/CustomButton'
+import { AuthContext } from '../../App';
+import { useContext } from 'react';
 
 const Settings = () => {
 
-  const Logout = async () => {
-    await AsyncStorage.removeItem('token');
-  }
+  const { signOut } = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 30, color: 'white' }}>
-        <CustomButton title={'Logout'} handlePress={() => Logout()} />
+        <CustomButton title={'Logout'} handlePress={() => signOut()} />
       </Text>
       <StatusBar backgroundColor='#ffa001' barStyle="light-content" />
     </View>
