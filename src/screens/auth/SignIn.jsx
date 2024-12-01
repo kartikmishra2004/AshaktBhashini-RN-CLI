@@ -79,7 +79,7 @@ const SignIn = ({ navigation }) => {
                 color: 'white',
                 fontWeight: '900'
               }}
-            >Sign Up to <Text style={{ color: '#ffa001' }}>Ashakt bhashini</Text>
+            >Sign In to <Text style={{ color: '#ffa001' }}>Ashakt bhashini</Text>
             </Text>
             <Text style={{
               fontSize: 16,
