@@ -6,6 +6,7 @@ import Profile from './Profile';
 import Settings from './Settings';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { AuthContext } from '../../App';
+import Call from './Call';
 
 const Tab = createBottomTabNavigator();
 
@@ -51,6 +52,14 @@ const Tabs = () => {
         name="Settings"
         component={Settings}
         signout={signOut}
+      />
+      <Tab.Screen
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (<FontAwesome name="gear" size={size} color={color} />)
+        }}
+        name="Call"
+        component={Call}
       />
     </Tab.Navigator>
   );
