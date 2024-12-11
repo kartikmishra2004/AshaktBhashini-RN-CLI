@@ -34,21 +34,20 @@ const HomePage = () => {
         }
       }
 
+      fetchContacts();
       Contacts.getAll()
         .then((contactsList) => {
           setContacts(
             contactsList.map((contact) => ({
               id: contact.recordID,
               name: contact.displayName || 'Unknown',
-              phone: contact.phoneNumbers[0]?.number || 'No Number',
+              phone: contact.phoneNumbers[0].number || 'No Number',
               avatar: contact.thumbnailPath || 'https://via.placeholder.com/50',
             }))
           );
         })
         .catch((error) => console.error('Error fetching contacts:', error));
     };
-
-    fetchContacts();
 
     const getUserList = async () => {
       try {
@@ -61,7 +60,8 @@ const HomePage = () => {
           }
         })
         const parsed_data = await response.json();
-        console.log(parsed_data);
+        console.log(parsed_data[0].phone, 'Number from server');
+        console.log(contacts)
       } catch (error) {
         console.log("Error fetching users")
       }
