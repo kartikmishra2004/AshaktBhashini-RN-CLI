@@ -125,7 +125,7 @@ const Signup = ({ navigation }) => {
                         />
                         <FormField
                             fieldType='deaf'
-                            title='Are you deaf?'
+                            title='Got a speech or hearing impairment?'
                             value={form.isDeaf}
                             handleChangeText={(value) => setForm({ ...form, isDeaf: value })}
                         />
