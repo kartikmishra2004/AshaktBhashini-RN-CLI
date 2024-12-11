@@ -1,7 +1,6 @@
 import { Image, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View, Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
-import logo from '../../assets/images/img.jpeg'
 import FormField from '../../components/FormField'
 import CustomButton from '../../components/CustomButton'
 
@@ -12,7 +11,7 @@ const Signup = ({ navigation }) => {
     const [form, setForm] = useState({
         fullName: '',
         username: '',
-        email: '',
+        phone: '',
         password: '',
         isDeaf: 'No',
         langPref: 'Hindi',
@@ -38,7 +37,7 @@ const Signup = ({ navigation }) => {
                     setForm({
                         fullName: '',
                         username: '',
-                        email: '',
+                        phone: '',
                         password: '',
                         isDeaf: 'No',
                         langPref: 'Hindi',
@@ -112,10 +111,10 @@ const Signup = ({ navigation }) => {
                             handleChangeText={(value) => setForm({ ...form, username: value })}
                         />
                         <FormField
-                            fieldType='text'
-                            title='Email'
-                            value={form.email}
-                            handleChangeText={(value) => setForm({ ...form, email: value })}
+                            fieldType='number'
+                            title='Phone'
+                            value={form.phone}
+                            handleChangeText={(value) => setForm({ ...form, phone: value })}
                         />
                         <FormField
                             fieldType='text'
@@ -138,7 +137,7 @@ const Signup = ({ navigation }) => {
                     </View>
                     {isLoading ?
                         (<CustomButton isDisabled={true} title='Please wait...' />) :
-                        (<CustomButton isDisabled={!form.fullName || !form.username || !form.email || !form.password ? true : false} title='Sign Up' handlePress={() => submitData()} />)}
+                        (<CustomButton isDisabled={!form.fullName || !form.username || !form.phone || !form.password ? true : false} title='Sign Up' handlePress={() => submitData()} />)}
 
                     <Text
                         onPress={() => navigation.navigate('SignIn')}

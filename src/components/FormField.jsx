@@ -24,7 +24,28 @@ const FormField = ({ title, fieldType, handleChangeText, value }) => {
                 />
             </View>
         );
-    } else if (fieldType === 'deaf') {
+    } else if (fieldType === 'number') {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.label}>{title}</Text>
+                <TextInput
+                    keyboardType='numeric'
+                    secureTextEntry={title === 'Password' ? true : isPassword}
+                    value={value}
+                    onChangeText={handleChangeText}
+                    style={[
+                        styles.input,
+                        isFocused && styles.focusedInput, // Apply focus styling conditionally
+                    ]}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                    placeholderTextColor="#aaa"
+                />
+            </View>
+        );
+    }
+
+    else if (fieldType === 'deaf') {
         return (
             <View style={styles.container}>
                 <Text style={styles.label}>{title}</Text>
@@ -69,7 +90,6 @@ const FormField = ({ title, fieldType, handleChangeText, value }) => {
         );
     }
 };
-
 
 export default FormField;
 

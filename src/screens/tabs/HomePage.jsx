@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,38 +6,90 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  PermissionsAndroid,
+  Platform,
 } from 'react-native';
+import Contacts from 'react-native-contacts';
 import { useNavigation } from '@react-navigation/native';
 import logo from "../../assets/images/img.jpeg";
-
-const chatData = [
-  { id: '1', name: 'Janya Karnik', message: "So, what's your plan this weekend?", time: '15:41', avatar: 'https://via.placeholder.com/50' },
-  { id: '2', name: 'Ishani Solanki', message: 'I hope it goes well.', time: '16:41', avatar: 'https://via.placeholder.com/50' },
-  // other chat items
-];
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomePage = () => {
   const [searchText, setSearchText] = useState('');
+  const [contacts, setContacts] = useState([]);
   const navigation = useNavigation();
 
-  const filteredData = chatData.filter(item =>
-    item.name.toLowerCase().includes(searchText.toLowerCase()) ||
-    item.message.toLowerCase().includes(searchText.toLowerCase())
+  // Function to fetch contacts
+  useEffect(() => {
+    const fetchContacts = async () => {
+      if (Platform.OS === 'android') {
+        const permission = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_CONTACTS
+        );
+
+        if (permission !== PermissionsAndroid.RESULTS.GRANTED) {
+          console.warn('Permission to access contacts was denied');
+          return;
+        }
+      }
+
+      Contacts.getAll()
+        .then((contactsList) => {
+          setContacts(
+            contactsList.map((contact) => ({
+              id: contact.recordID,
+              name: contact.displayName || 'Unknown',
+              phone: contact.phoneNumbers[0]?.number || 'No Number',
+              avatar: contact.thumbnailPath || 'https://via.placeholder.com/50',
+            }))
+          );
+        })
+        .catch((error) => console.error('Error fetching contacts:', error));
+    };
+
+    fetchContacts();
+
+    const getUserList = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        const response = await fetch('https://bhashasaar-sih-2024.vercel.app/api/v1/chatlist', {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+          }
+        })
+        const parsed_data = await response.json();
+        console.log(parsed_data);
+      } catch (error) {
+        console.log("Error fetching users")
+      }
+    }
+    getUserList();
+
+  }, []);
+
+  // Filter contacts based on search text
+  const filteredContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(searchText.toLowerCase()) ||
+    contact.phone.toLowerCase().includes(searchText.toLowerCase())
   );
 
+  // Render each contact item
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.chatItem}
-      onPress={() => navigation.navigate('Chat', { chatId: item.id, name: item.name })}
+      onPress={() =>
+        navigation.navigate('Chat', { contactId: item.id, phone: item.phone, name: item.name })
+      }
     >
       <Image source={{ uri: item.avatar }} style={styles.avatar} />
       <View style={styles.textContainer}>
         <View style={styles.topRow}>
           <Text style={styles.name}>{item.name}</Text>
-          <Text style={styles.time}>{item.time}</Text>
+          <Text style={styles.phone}>{item.phone}</Text>
         </View>
-        <Text style={styles.message} numberOfLines={1}>{item.message}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -57,11 +109,11 @@ const HomePage = () => {
           style={styles.searchBar}
           placeholder="Search"
           value={searchText}
-          onChangeText={text => setSearchText(text)}
+          onChangeText={(text) => setSearchText(text)}
         />
       </View>
       <FlatList
-        data={filteredData}
+        data={filteredContacts}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
@@ -73,7 +125,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingVertical: 20
+    paddingVertical: 20,
   },
   searchBar: {
     height: 40,
@@ -98,7 +150,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
     marginLeft: 10,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   topRow: {
     flexDirection: 'row',
@@ -109,13 +161,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  time: {
-    fontSize: 12,
-    color: '#888',
-  },
-  message: {
+  phone: {
     fontSize: 14,
-    color: '#555',
+    color: '#888',
   },
 });
 

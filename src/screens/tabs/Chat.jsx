@@ -5,7 +5,7 @@ import lessthan from '../../assets/images/less-than.png'
 
 const Chat = ({ route, navigation }) => {
 
-  const { name } = route.params;
+  const { name, phone } = route.params;
 
   return (
     <View style={styles.container}>
