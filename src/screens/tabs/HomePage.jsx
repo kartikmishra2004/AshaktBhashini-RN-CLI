@@ -17,71 +17,99 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomePage = () => {
   const [searchText, setSearchText] = useState('');
-  const [contacts, setContacts] = useState([]);
+  const [deviceContacts, setDeviceContacts] = useState([]);
+  const [serverContacts, setServerContacts] = useState([]);
+  const [mergedContacts, setMergedContacts] = useState([]);
   const navigation = useNavigation();
 
-  // Function to fetch contacts
   useEffect(() => {
-    const fetchContacts = async () => {
-      if (Platform.OS === 'android') {
-        const permission = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.READ_CONTACTS
-        );
-
-        if (permission !== PermissionsAndroid.RESULTS.GRANTED) {
-          console.warn('Permission to access contacts was denied');
-          return;
-        }
-      }
-
-      fetchContacts();
-      Contacts.getAll()
-        .then((contactsList) => {
-          setContacts(
-            contactsList.map((contact) => ({
-              id: contact.recordID,
-              name: contact.displayName || 'Unknown',
-              phone: contact.phoneNumbers[0].number || 'No Number',
-              avatar: contact.thumbnailPath || 'https://via.placeholder.com/50',
-            }))
+    const fetchDeviceContacts = async () => {
+      try {
+        if (Platform.OS === 'android') {
+          const permission = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.READ_CONTACTS
           );
-        })
-        .catch((error) => console.error('Error fetching contacts:', error));
+          if (permission !== PermissionsAndroid.RESULTS.GRANTED) {
+            console.warn('Permission to access contacts was denied');
+            return;
+          }
+        }
+
+        const contactsList = await Contacts.getAll();
+        const formattedContacts = contactsList.map((contact) => ({
+          id: contact.recordID || String(Math.random()),
+          name: contact.givenName + ' ' + (contact.familyName || ''),
+          phone: contact.phoneNumbers && contact.phoneNumbers[0]
+            ? contact.phoneNumbers[0].number.replace(/\s+/g, '')
+            : 'No Number',
+            avatar: contact.thumbnailPath || 'https://via.placeholder.com/50',
+        }));
+        setDeviceContacts(formattedContacts);
+      } catch (error) {
+        console.error('Error fetching device contacts:', error);
+      }
     };
 
-    const getUserList = async () => {
-      try {
-        const token = await AsyncStorage.getItem('token');
-        const response = await fetch('https://bhashasaar-sih-2024.vercel.app/api/v1/chatlist', {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json",
-          }
-        })
-        const parsed_data = await response.json();
-        console.log(parsed_data[0].phone, 'Number from server');
-        console.log(contacts)
-      } catch (error) {
-        console.log("Error fetching users")
-      }
-    }
-    getUserList();
-
+    fetchDeviceContacts();
   }, []);
 
-  // Filter contacts based on search text
-  const filteredContacts = contacts.filter((contact) =>
+  useEffect(() => {
+    const fetchServerContacts = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        const response = await fetch(
+          'https://bhashasaar-sih-2024.vercel.app/api/v1/chatlist',
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        const parsedData = await response.json();
+        const formattedContacts = parsedData.map((user) => ({
+          id: user.id || String(Math.random()),
+          name: user.fullName || 'Unknown',
+          phone: user.phone.replace(/\s+/g, ''),
+        }));
+        setServerContacts(formattedContacts);
+      } catch (error) {
+        console.error('Error fetching server contacts:', error);
+      }
+    };
+
+    fetchServerContacts();
+  }, []);
+
+  useEffect(() => {
+    const mergeContacts = () => {
+      const serverPhones = new Set(serverContacts.map((contact) => contact.phone));
+      const matchingContacts = deviceContacts.filter((contact) =>
+        serverPhones.has(contact.phone)
+      );
+      setMergedContacts(matchingContacts);
+    };
+
+    if (serverContacts.length && deviceContacts.length) {
+      mergeContacts();
+    }
+  }, [serverContacts, deviceContacts]);
+
+  const filteredContacts = mergedContacts.filter((contact) =>
     contact.name.toLowerCase().includes(searchText.toLowerCase()) ||
     contact.phone.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  // Render each contact item
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.chatItem}
       onPress={() =>
-        navigation.navigate('Chat', { contactId: item.id, phone: item.phone, name: item.name })
+        navigation.navigate('Chat', {
+          contactId: item.id,
+          phone: item.phone,
+          name: item.name,
+        })
       }
     >
       <Image source={{ uri: item.avatar }} style={styles.avatar} />
@@ -116,6 +144,7 @@ const HomePage = () => {
         data={filteredContacts}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        ListEmptyComponent={() => <Text style={styles.emptyText}>No contacts found</Text>}
       />
     </View>
   );
@@ -164,6 +193,11 @@ const styles = StyleSheet.create({
   phone: {
     fontSize: 14,
     color: '#888',
+  },
+  emptyText: {
+    textAlign: 'center',
+    padding: 20,
+    color: '#666',
   },
 });
 
