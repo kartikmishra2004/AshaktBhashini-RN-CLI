@@ -26,7 +26,7 @@ const App = () => {
 
     // Define basic information
     const appId = '7b237a9b8a49470bbed958a1c5febd77';
-    const token = randString;
+    const token = '007eJxSYBAJl1v2bEX9zkmFwe+8J/Md6Vxw+cyC47xpswwVe51XeEQrMJgnGRmbJ1omWSSaWJqYGyQlpaZYmlokGiabpqUmpZibh3pEpjcEMjJcPmjKyMjAyMDCwMgA4jOBSWYwyQImQQAQAAD//xCmIFI='
     const channelName = 'testChannel';
     const uid = 0; // Local user Uid, no need to modify
 
