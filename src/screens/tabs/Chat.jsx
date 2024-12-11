@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
+import call from '../../assets/images/call.png'
+import lessthan from '../../assets/images/less-than.png'
 
-const Chat = ({ route }) => {
+const Chat = ({ route, navigation }) => {
 
   const { name } = route.params;
 
@@ -10,40 +12,45 @@ const Chat = ({ route }) => {
       {/* Header Section */}
       <View style={styles.header}>
         <View style={styles.profileSection}>
-          <Image
-            source={{
-              uri: 'https://via.placeholder.com/50', // Placeholder for profile image
-            }}
-            style={styles.profileImage}
-          />
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Image
+              source={lessthan}
+              style={styles.profileImage}
+            />
+          </TouchableOpacity>
           <Text style={styles.profileName}>{name}</Text>
         </View>
-        <TouchableOpacity style={styles.callButton}>
-          <Text style={styles.callIcon}>📞</Text>
+        <TouchableOpacity>
+          <Image source={call} style={{ width: 40, height: 40 }} />
         </TouchableOpacity>
       </View>
 
       {/* Chat Section */}
       <View style={styles.chatContainer}>
         <Text style={styles.dateText}>Today</Text>
-        <View style={[styles.message, styles.sentMessage]}>
-          <Text style={styles.messageText}>Hello!!</Text>
-          <Text style={styles.timeText}>23:20</Text>
+        <View style={styles.messageContainer}>
+          <View style={[styles.message, styles.sentMessage]}>
+            <Text style={styles.messageText}>Hello!!</Text>
+          </View>
+          <Text style={[styles.timeText, { alignSelf: 'flex-end' }]}>23:20</Text>
         </View>
-        <View style={[styles.message, styles.receivedMessage]}>
-          <Text style={[styles.messageText, { color: '#000000' }]}>Hey!!</Text>
+        <View style={styles.messageContainer}>
+          <View style={[styles.message, styles.receivedMessage]}>
+            <Text style={[styles.messageText, { color: '#000000' }]}>Hey there!!</Text>
+          </View>
           <Text style={[styles.timeText, { color: '#000000' }]}>23:20</Text>
         </View>
-        <View style={[styles.message, styles.sentMessage]}>
-          <Text style={styles.messageText}>All the best!</Text>
-          <Text style={styles.timeText}>23:20</Text>
+        <View style={styles.messageContainer}>
+          <View style={[styles.message, styles.sentMessage]}>
+            <Text style={styles.messageText}>All the best!</Text>
+          </View>
+          <Text style={[styles.timeText, { alignSelf: 'flex-end' }]}>23:20</Text>
         </View>
-        <View style={[styles.message, styles.receivedMessage]}>
-          <Text style={[styles.messageText, { color: '#000000' }]}>Thanks.
-
-
-            <Text style={[styles.timeText, { color: '#000000' }]}>23:20</Text>
-          </Text>
+        <View style={styles.messageContainer}>
+          <View style={[styles.message, styles.receivedMessage]}>
+            <Text style={[styles.messageText, { color: '#000000' }]}>Thanks.</Text>
+          </View>
+          <Text style={[styles.timeText, { color: '#000000' }]}>06:20</Text>
         </View>
       </View>
 
@@ -76,6 +83,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 10,
     backgroundColor: '#e0e7ff',
+    paddingVertical: 20
   },
   profileSection: {
     flexDirection: 'row',
@@ -129,12 +137,15 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
   },
+  messageContainer: {
+    marginBottom: 10,
+  },
   timeText: {
-    textAlign: 'right',
-    color: '#ffffff',
+    color: '#999',
     fontSize: 10,
     marginTop: 5,
   },
+
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',

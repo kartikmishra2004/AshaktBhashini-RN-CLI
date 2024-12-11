@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    paddingVertical: 20
   },
   searchBar: {
     height: 40,
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
     marginLeft: 10,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   topRow: {
     flexDirection: 'row',
