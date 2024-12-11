@@ -1,7 +1,7 @@
 import { Image, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View, Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
-import logo from '../../assets/images/img.png'
+import logo from '../../assets/images/img.jpeg'
 import FormField from '../../components/FormField'
 import CustomButton from '../../components/CustomButton'
 
@@ -60,14 +60,14 @@ const Signup = ({ navigation }) => {
 
     return (
         <SafeAreaView>
-            <ScrollView contentContainerStyle={{ height: '100vh', paddingVertical: 50, backgroundColor: '#161622' }}>
+            <ScrollView contentContainerStyle={{ height: '100vh', paddingVertical: 50, backgroundColor: '#ffffff' }}>
                 <View
                     style={{
                         flex: 1,
                         justifyContent: "center",
                         alignItems: "center",
-                        backgroundColor: "#161622",
-                        gap: 60
+                        backgroundColor: "#ffffff",
+                        gap: 20
                     }}
                 >
                     <View
@@ -76,30 +76,25 @@ const Signup = ({ navigation }) => {
                             alignItems: "center",
                         }}
                     >
-                        <Image
-                            style={{
-                                width: 100,
-                                height: 100,
-                                marginBottom: 20,
-                            }}
-                            source={logo}
-                        />
+                        <View style={{}}>
+
+                        </View>
                         <Text
                             style={{
                                 textAlign: "center",
                                 width: 300,
                                 fontSize: 30,
                                 fontFamily: 'Inder',
-                                color: 'white',
+                                color: 'black',
                                 fontWeight: '900'
                             }}
-                        >Sign Up to <Text style={{ color: '#ffa001' }}>Ashakt bhashini</Text>
+                        >Sign Up to <Text style={{ color: '#6479e3' }}>Ashakt bhashini</Text>
                         </Text>
                         <Text style={{
                             fontSize: 16,
                             letterSpacing: 1,
-                            fontWeight: '100',
-                            color: 'white',
+                            fontWeight: '300',
+                            color: 'black',
                             marginTop: 10
                         }}>Join Us and Redefine Connection.</Text>
                     </View>
@@ -150,8 +145,8 @@ const Signup = ({ navigation }) => {
                         style={{
                             fontSize: 16,
                             letterSpacing: 1,
-                            fontWeight: '100',
-                            color: 'white',
+                            fontWeight: '300',
+                            color: 'black',
                             marginTop: 10
                         }}
                     >
@@ -159,7 +154,7 @@ const Signup = ({ navigation }) => {
                     </Text>
                 </View>
             </ScrollView>
-            <StatusBar backgroundColor='#161622' barStyle="light-content" />
+            <StatusBar backgroundColor='#ffffff' barStyle="light-content" />
         </SafeAreaView>
     )
 }

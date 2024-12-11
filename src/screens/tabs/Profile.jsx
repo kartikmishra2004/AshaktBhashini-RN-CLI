@@ -40,7 +40,7 @@ const Profile = () => {
           </View>
         </View>
       </View>
-      <StatusBar backgroundColor='#ffa001' barStyle="light-content" />
+      <StatusBar backgroundColor='#6479e3' barStyle="light-content" />
     </>
   )
 }
@@ -50,7 +50,7 @@ export default Profile
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#ffa001',
+    backgroundColor: '#6479e3',
     height: 200,
   },
   container: {
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     height: 130,
     borderRadius: 63,
     borderWidth: 4,
-    borderColor: 'white',
+    borderColor: 'black',
     marginBottom: 10,
     alignSelf: 'center',
     position: 'absolute',
@@ -77,14 +77,14 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 28,
-    color: 'white',
+    color: 'black',
     fontWeight: '600',
   },
   info: {
     fontSize: 16,
     letterSpacing: 1,
     fontWeight: '100',
-    color: 'white',
+    color: 'black',
     marginTop: 5,
   },
   description: {

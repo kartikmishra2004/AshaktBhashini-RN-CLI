@@ -9,7 +9,7 @@ const CustomButton = ({ title, handlePress, isDisabled }) => {
             style={{
                 justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: `${!isDisabled ? '#ffa001' : '#232533'}`,
+                backgroundColor: `${!isDisabled ? '#6479e3' : '#bababa'}`,
                 borderRadius: 30,
                 width: 320,
                 height: 55,

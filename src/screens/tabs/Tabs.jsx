@@ -1,12 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Home from './Home';
+import TTStranslation from './TTStranslation';
 import Profile from './Profile';
 import Settings from './Settings';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { AuthContext } from '../../App';
 import Call from './Call';
+import HomePage from './HomePage';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,11 +18,11 @@ const Tabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: '#ffa001',
+        tabBarActiveTintColor: '#6479e3',
         tabBarInactiveTintColor: '#cdcde0',
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: '#161622',
+          backgroundColor: '#ffffff',
           borderTopColor: '#232533',
           borderTopWidth: 0,
           boxShadow: '0px 0px',
@@ -33,8 +35,16 @@ const Tabs = () => {
           headerShown: false,
           tabBarIcon: ({ color, size }) => (<FontAwesome name="home" size={size} color={color} />)
         }}
-        name="Home"
-        component={Home}
+        name="HomePage"
+        component={HomePage}
+      />
+      <Tab.Screen
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (<FontAwesome name="file-text" size={size} color={color} />)
+        }}
+        name="TTStranslation"
+        component={TTStranslation}
       />
       <Tab.Screen
         options={{
@@ -56,7 +66,7 @@ const Tabs = () => {
       <Tab.Screen
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (<FontAwesome name="gear" size={size} color={color} />)
+          tabBarIcon: ({ color, size }) => (<Ionicons name="call" size={size} color={color} />)
         }}
         name="Call"
         component={Call}

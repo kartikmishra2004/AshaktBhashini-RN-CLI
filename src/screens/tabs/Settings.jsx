@@ -9,10 +9,10 @@ const Settings = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 30, color: 'white' }}>
+      <Text style={{ fontSize: 30, color: 'black' }}>
         <CustomButton title={'Logout'} handlePress={() => signOut()} />
       </Text>
-      <StatusBar backgroundColor='#ffa001' barStyle="light-content" />
+      <StatusBar backgroundColor='#6479e3' barStyle="light-content" />
     </View>
   )
 }

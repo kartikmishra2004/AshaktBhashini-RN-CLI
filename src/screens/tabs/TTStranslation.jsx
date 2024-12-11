@@ -7,13 +7,15 @@ import {
   SafeAreaView,
   ScrollView,
   StatusBar,
+  TouchableOpacity,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Picker } from '@react-native-picker/picker';
 import Clipboard from '@react-native-clipboard/clipboard';
 import CustomButton from '../../components/CustomButton';
+import { ElevenLabsClient } from "elevenlabs";
 
-const Home = () => {
+const TTStranslation = () => {
 
   const [transForm, setTransForm] = useState({
     key: 'devnagri_2c7a182ca9ca11efb60142010aa00012',
@@ -60,9 +62,19 @@ const Home = () => {
     }
   }
 
+  const handleSpeech = async () => {
+    try {
+      console.log("TTS")
+      const res_data = await response.json();
+      console.log(res_data)
+    } catch (error) {
+      console.log("Error in fetching!!")
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={{ paddingVertical: 30 }}>
+      <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
         <View>
           <Text
             style={{
@@ -71,10 +83,10 @@ const Home = () => {
               justifyContent: 'center',
               fontSize: 44,
               paddingVertical: 25,
-              color: '#ffa001',
+              color: '#6479e3',
               fontWeight: '900',
             }}>
-            India <Text style={{ color: 'white' }}>Speaks, You</Text> <Text style={{ color: '#ffa001' }}>Understand.</Text>
+            India <Text style={{ color: 'black' }}>Speaks, You</Text> <Text style={{ color: '#6479e3' }}>Understand.</Text>
           </Text>
         </View>
         <View style={styles.translationBox}>
@@ -82,13 +94,13 @@ const Home = () => {
             <Picker
               mode='dropdown'
               onValueChange={(e) => setTransForm({ ...transForm, src_lang: e })}
-              dropdownIconColor="white"
+              dropdownIconColor="black"
               style={{
-                color: 'white',
+                color: 'black',
                 width: 150,
                 height: 50,
                 padding: 30,
-                backgroundColor: '#232533',
+                backgroundColor: '#ffffff',
               }}>
               <Picker.Item key={'en'} label='English' value='en' />
               <Picker.Item key={'hi'} label='Hindi' value='hi' />
@@ -97,10 +109,12 @@ const Home = () => {
               <Picker.Item key={'kn'} label='Kannada' value='kn' />
               <Picker.Item key={'mr'} label='Marathi' value='mr' />
             </Picker>
-            <Ionicons name="volume-high" size={20} color="white" />
+            <TouchableOpacity onPress={handleSpeech}>
+              <Ionicons name="volume-high" size={20} color="black" />
+            </TouchableOpacity>
           </View>
           <TextInput
-            placeholderTextColor="#bababa"
+            placeholderTextColor="#a3a3a3"
             placeholder='Enter text to translate.'
             multiline={true}
             scrollEnabled={true}
@@ -109,7 +123,7 @@ const Home = () => {
             value={transForm.sentence}
           />
           <View style={styles.bottomRow}>
-            <Ionicons onPress={() => Clipboard.setString(transForm.sentence)} name="copy" size={24} color="#bababa" />
+            <Ionicons onPress={() => Clipboard.setString(transForm.sentence)} name="copy" size={24} color="#000000" />
           </View>
         </View>
         <View style={styles.translationBox}>
@@ -117,13 +131,13 @@ const Home = () => {
             <Picker
               mode='dropdown'
               onValueChange={(e) => setTransForm({ ...transForm, dest_lang: e })}
-              dropdownIconColor="white"
+              dropdownIconColor="black"
               style={{
-                color: 'white',
+                color: 'black',
                 width: 150,
                 height: 50,
                 padding: 30,
-                backgroundColor: '#232533',
+                backgroundColor: '#ffffff',
               }}>
               <Picker.Item key={'hi'} label='Hindi' value='hi' />
               <Picker.Item key={'en'} label='English' value='en' />
@@ -132,7 +146,9 @@ const Home = () => {
               <Picker.Item key={'kn'} label='Kannada' value='kn' />
               <Picker.Item key={'mr'} label='Marathi' value='mr' />
             </Picker>
-            <Ionicons name="volume-high" size={20} color="white" />
+            <TouchableOpacity onPress={handleSpeech}>
+              <Ionicons name="volume-high" size={20} color="black" />
+            </TouchableOpacity>
           </View>
           <TextInput
             placeholderTextColor="#bababa"
@@ -143,7 +159,7 @@ const Home = () => {
             editable={false}
           >{translatedText}</TextInput>
           <View style={styles.bottomRow}>
-            <Ionicons onPress={() => Clipboard.setString(translatedText)} name="copy" size={24} color="#bababa" />
+            <Ionicons onPress={() => Clipboard.setString(translatedText)} name="copy" size={24} color="#000000" />
           </View>
         </View>
         <View style={{
@@ -155,24 +171,24 @@ const Home = () => {
           </CustomButton>)}
         </View>
       </ScrollView>
-      <StatusBar backgroundColor='#ffa001' barStyle="light-content" />
+      <StatusBar backgroundColor='#6479e3' barStyle="light-content" />
     </SafeAreaView>
   );
 }
 
-export default Home;
+export default TTStranslation;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-evenly',
-    backgroundColor: '#161622',
+    backgroundColor: '#ffffff',
   },
   languageSelector: {
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    backgroundColor: '#232533',
+    backgroundColor: '#ffffff',
     marginVertical: 10,
     padding: 10,
     borderRadius: 20,
@@ -185,10 +201,10 @@ const styles = StyleSheet.create({
   languageText: {
     fontSize: 16,
     fontWeight: '500',
-    color: 'white'
+    color: 'black'
   },
   translationBox: {
-    backgroundColor: '#232533',
+    backgroundColor: '#ffffff',
     margin: 15,
     padding: 15,
     borderRadius: 10,
@@ -203,13 +219,13 @@ const styles = StyleSheet.create({
   boxTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: 'white',
+    color: 'black',
   },
   textInput: {
     fontSize: 16,
-    backgroundColor: '#2c2e40',
+    backgroundColor: '#f5f5f5',
     borderRadius: 10,
-    color: 'white',
+    color: 'black',
     padding: 10,
     marginBottom: 10,
     height: 120,
@@ -221,18 +237,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   micIcon: {
-    backgroundColor: '#003366',
+    backgroundColor: '#000000',
     borderRadius: 50,
     padding: 10,
   },
   translateButton: {
-    backgroundColor: '#ffa001',
+    backgroundColor: '#6479e3',
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 20,
   },
   translateButtonText: {
-    color: 'white',
+    color: 'black',
     fontWeight: '600',
     fontSize: 14,
   },
@@ -242,7 +258,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderTopWidth: 1,
     borderTopColor: '#ddd',
-    backgroundColor: 'white',
+    backgroundColor: 'black',
   },
   navItem: {
     alignItems: 'center',

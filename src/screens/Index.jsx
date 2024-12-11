@@ -1,18 +1,18 @@
 import { Image, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import CustomButton from '../components/CustomButton'
-import logo from '../assets/images/img.png'
+import logo from '../assets/images/img.jpeg'
 
 const Home = ({ navigation }) => {
   return (
-    <SafeAreaView style={{ borderStartColor: '#161622' }}>
-      <ScrollView style={{ borderStartColor: '#161622' }} contentContainerStyle={{ height: '100%', backgroundColor: '#161622' }}>
+    <SafeAreaView style={{ borderStartColor: '#ffffff' }}>
+      <ScrollView style={{ borderStartColor: '#ffffff' }} contentContainerStyle={{ height: '100%', backgroundColor: '#ffffff' }}>
         <View
           style={{
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "#161622",
+            backgroundColor: "#ffffff",
             gap: 60
           }}
         >
@@ -36,23 +36,23 @@ const Home = ({ navigation }) => {
                 width: 300,
                 fontSize: 30,
                 fontFamily: 'Inder',
-                color: 'white',
+                color: 'black',
                 fontWeight: '900'
               }}
-            >Welcome to <Text style={{ color: '#ffa001' }}>Ashakt bhashini</Text>
+            >Welcome to <Text style={{ color: '#6479e3' }}>Ashakt bhashini</Text>
             </Text>
             <Text style={{
               fontSize: 16,
               letterSpacing: 1,
-              fontWeight: '100',
-              color: 'white',
+              fontWeight: '300',
+              color: 'black',
               marginTop: 10
             }}>Breaking Barriers, Bridging Voices.</Text>
           </View>
         <CustomButton title='Continue' handlePress={() => navigation.navigate('GetStarted')} />
         </View>
       </ScrollView>
-      <StatusBar backgroundColor='#161622' barStyle="light-content" />
+      <StatusBar backgroundColor='#ffffff' barStyle="light-content" />
     </SafeAreaView>
   )
 }

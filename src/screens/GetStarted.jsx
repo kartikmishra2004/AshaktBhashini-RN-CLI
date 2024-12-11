@@ -1,19 +1,19 @@
 import { Button, Image, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import logo from "../assets/images/img.png";
+import logo from "../assets/images/img.jpeg";
 import CustomButton from '../components/CustomButton';
-import deaf from "../assets/images/Deaf.png";
+import sign1 from "../assets/images/sign1.jpeg";
 
 GetStarted = ({ navigation }) => {
   return (
     <SafeAreaView>
-      <ScrollView contentContainerStyle={{ height: '100%', backgroundColor: '#161622' }}>
+      <ScrollView contentContainerStyle={{ height: '100%', backgroundColor: '#ffffff' }}>
         <View
           style={{
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "#161622",
+            backgroundColor: "#ffffff",
             gap: 60,
           }}
         >
@@ -41,17 +41,17 @@ GetStarted = ({ navigation }) => {
                   width: 300,
                   fontSize: 30,
                   fontFamily: 'Inder',
-                  color: 'white',
+                  color: 'black',
                   fontWeight: '900'
                 }}
-              >Continue to <Text style={{ color: '#ffa001' }}>Ashakt bhashini</Text>
+              >Continue to <Text style={{ color: '#6479e3' }}>Ashakt bhashini</Text>
               </Text>
             </View>
             <Text style={{
               fontSize: 16,
               letterSpacing: 1,
-              fontWeight: '100',
-              color: 'white',
+              fontWeight: '300',
+              color: 'black',
               marginTop: 10
             }}>Empower Communication, One Tap Away.</Text>
             <Image
@@ -59,14 +59,15 @@ GetStarted = ({ navigation }) => {
                 width: 250,
                 height: 200,
                 marginTop: 50,
+                objectFit: 'contain'
               }}
-              source={deaf}
+              source={sign1}
             />
           </View>
           <CustomButton title='Get started' handlePress={() => { navigation.navigate('SignUp') }} />
         </View>
       </ScrollView>
-      <StatusBar backgroundColor='#161622' barStyle="light-content" />
+      <StatusBar backgroundColor='#ffffff' barStyle="light-content" />
     </SafeAreaView>
   )
 }

@@ -1,6 +1,6 @@
 import { Alert, Image, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
 import React, { useState, useContext } from 'react'
-import logo from '../../assets/images/img.png';
+import logo from '../../assets/images/img.jpeg';
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -47,13 +47,13 @@ const SignIn = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      <ScrollView contentContainerStyle={{ height: '100%', paddingVertical: 50, backgroundColor: '#161622' }}>
+      <ScrollView contentContainerStyle={{ height: '100%', paddingVertical: 50, backgroundColor: '#ffffff' }}>
         <View
           style={{
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "#161622",
+            backgroundColor: "#ffffff",
             gap: 60
           }}
         >
@@ -63,30 +63,22 @@ const SignIn = ({ navigation }) => {
               alignItems: "center",
             }}
           >
-            <Image
-              style={{
-                width: 100,
-                height: 100,
-                marginBottom: 20,
-              }}
-              source={logo}
-            />
             <Text
               style={{
                 textAlign: "center",
                 width: 300,
                 fontSize: 30,
                 fontFamily: 'Inder',
-                color: 'white',
+                color: 'black',
                 fontWeight: '900'
               }}
-            >Sign In to <Text style={{ color: '#ffa001' }}>Ashakt bhashini</Text>
+            >Sign In to <Text style={{ color: '#6479e3' }}>Ashakt bhashini</Text>
             </Text>
             <Text style={{
               fontSize: 16,
               letterSpacing: 1,
-              fontWeight: '100',
-              color: 'white',
+              fontWeight: '300',
+              color: 'black',
               marginTop: 10
             }}>Join Us and Redefine Connection.</Text>
           </View>
@@ -119,8 +111,8 @@ const SignIn = ({ navigation }) => {
             style={{
               fontSize: 16,
               letterSpacing: 1,
-              fontWeight: '100',
-              color: 'white',
+              fontWeight: '300',
+              color: 'black',
               marginTop: 10
             }}
           >
@@ -128,7 +120,7 @@ const SignIn = ({ navigation }) => {
           </Text>
         </View>
       </ScrollView>
-      <StatusBar backgroundColor='#161622' barStyle="light-content" />
+      <StatusBar backgroundColor='#ffffff' barStyle="light-content" />
     </SafeAreaView>
   )
 }

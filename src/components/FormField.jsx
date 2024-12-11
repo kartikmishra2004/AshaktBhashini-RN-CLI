@@ -36,7 +36,7 @@ const FormField = ({ title, fieldType, handleChangeText, value }) => {
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                     placeholderTextColor="#aaa"
-                    dropdownIconColor="white"
+                    dropdownIconColor="black"
                     selectedValue={value}
                     onValueChange={(itemValue) => handleChangeText(itemValue)} // Update parent state
                 >
@@ -57,7 +57,7 @@ const FormField = ({ title, fieldType, handleChangeText, value }) => {
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                     placeholderTextColor="#aaa"
-                    dropdownIconColor="white"
+                    dropdownIconColor="black"
                     selectedValue={value}
                     onValueChange={(itemValue) => handleChangeText(itemValue)} // Update parent state
                 >
@@ -80,20 +80,19 @@ const styles = StyleSheet.create({
     label: {
         letterSpacing: 1,
         fontWeight: '400',
-        color: 'white',
+        color: 'black',
         marginBottom: 5, // Space between label and input
     },
     input: {
         width: 300,
         height: 50,
-        backgroundColor: '#232533',
+        backgroundColor: '#f5f5f5',
         borderRadius: 10,
-        borderWidth: 1,
         borderColor: '#232533',
         padding: 10,
-        color: 'white',
+        color: 'black',
     },
     focusedInput: {
-        borderColor: '#ffa001',
+        borderColor: '#6479e3',
     },
 });
