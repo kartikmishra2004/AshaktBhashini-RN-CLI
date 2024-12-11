@@ -9,6 +9,7 @@ import GetStarted from './screens/GetStarted';
 import SignUp from './screens/auth/SignUp';
 import SignIn from './screens/auth/SignIn';
 import Tabs from './screens/tabs/Tabs';
+import Chat from './screens/tabs/Chat';
 
 const Stack = createNativeStackNavigator();
 export const AuthContext = React.createContext();
@@ -71,6 +72,7 @@ const App = () => {
         ) : (
           <Stack.Navigator>
             <Stack.Screen options={{ headerShown: false }} name="Tabs" component={Tabs} />
+            <Stack.Screen options={{ headerShown: false }} name="Chat" component={Chat} />
           </Stack.Navigator>
         )}
       </NavigationContainer>

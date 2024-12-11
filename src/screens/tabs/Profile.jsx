@@ -55,14 +55,14 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#232533'
+    backgroundColor: '#ffffff'
   },
   avatar: {
     width: 130,
     height: 130,
     borderRadius: 63,
     borderWidth: 4,
-    borderColor: 'black',
+    borderColor: '#ffffff',
     marginBottom: 10,
     alignSelf: 'center',
     position: 'absolute',
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   info: {
     fontSize: 16,
     letterSpacing: 1,
-    fontWeight: '100',
+    fontWeight: '300',
     color: 'black',
     marginTop: 5,
   },
